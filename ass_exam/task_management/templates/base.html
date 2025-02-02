@@ -17,16 +17,17 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="taks_page">Add Task</a>
+                <a class="nav-link active" aria-current="page" href="{%url 'task_page' %}">Add Task</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="#">Add Catagory</a>
+                <a class="nav-link" href="{%url 'catagory_page' %}">Add Catagory</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="#">Show Task</a>
-         
+                <a class="nav-link" href="{% url 'home_page' %}">Show Task</a>
+                </li>
+            
         
     
           </div>
@@ -35,7 +36,40 @@
 
 
       {% block content %}
-      
+
+      <div class="card_group row d-flex flex-wrap justify-content-center px-4 pt-4">
+        {% for info in data %}
+
+        <div class="card col-md-3 mx-2" >
+          <div class="card-body">
+            <h5 class="card-title">ID : {{info.id}}</h5>
+            <h5 class="card-title">Assigned_Date : {{info.assign_date}}</h5>
+            <h5 class="card-title">Description : {{info.description}}</h5>
+            <h5 class="card-title">Catagory : 
+
+             {% for cat in info.catagory_name.all %}   
+               
+                <p class=" btn btn-primary btn-sm " disabled >  {{cat}} <b></b></p>
+                {% endfor %}
+           
+
+            </h5>
+
+            {% if not info.is_completed %}
+            <a href="{% url 'edit_page' info.id %}" class="btn btn-warning btn-sm">Edit</a>
+            <a href="{% url 'delete_page' info.id %}" class="btn btn-danger btn-sm">Delete</a>
+        {% else %}
+            <h4> <a href="" class="btn btn-success btn-sm">completed</a></h4>
+        {% endif %}
+        
+          
+          </div>
+        </div>
+
+         
+        {% endfor %}
+      </div>
+        
       {% endblock content %}
 
 

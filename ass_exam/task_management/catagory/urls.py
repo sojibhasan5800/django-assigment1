@@ -4,5 +4,5 @@ from .views import catagorypage
 
 urlpatterns = [
 
-    path('catagory',catagorypage,name='catagory_page')   
+    path('catagorys',catagorypage,name='catagory_page')   
 ]
